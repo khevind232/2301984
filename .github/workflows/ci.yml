@@ -25,9 +25,10 @@ jobs:
           npm install
           npm install eslint --save-dev
 
-      - name: Run ESLint scan
+      - name: Fix eslint permission & run scan
         run: |
           cd web
+          chmod +x ./node_modules/.bin/eslint
           npx eslint .
 
       - name: Start web server and test UI
