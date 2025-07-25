@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Search</title>
+  <style>
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Search Page</h2>
+  <form method="POST" action="/search" id="searchForm">
+    <input type="text" name="search" id="search" required />
+    <button type="submit">Submit</button>
+    <p id="errorMsg" class="error" style="display:none;">Invalid Input</p>
+  </form>
+
+  <script>
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("search");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function (e) {
+      const value = input.value;
+      const xssPattern = /<[^>]+>|(script|onerror|onload|javascript:)/i;
+      const sqlPattern = /('|--|;|\/\*|\*\/|xp_|exec|select|insert|delete|drop|union|update)/i;
+
+      if (xssPattern.test(value) || sqlPattern.test(value)) {
+        e.preventDefault();
+        input.value = "";
+        errorMsg.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
