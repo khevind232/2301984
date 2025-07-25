@@ -24,6 +24,11 @@ jobs:
           cd web
           npm install
 
+      - name: Run ESLint scan
+        run: |
+          cd web
+          npm run lint
+
       - name: Start web server and test UI
         run: |
           cd web
