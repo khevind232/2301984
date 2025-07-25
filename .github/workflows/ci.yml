@@ -19,10 +19,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install dependencies + ESLint
         run: |
           cd web
           npm install
+          npm install eslint --save-dev
 
       - name: Run ESLint scan
         run: |
